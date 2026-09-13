@@ -1,0 +1,14 @@
+{
+  "name": "vda5050-skill",
+  "description": "VDA 5050 reference skill for Claude Code: spec facts, JSON schemas, message validator.",
+  "owner": {
+    "name": "Navifra-Sally"
+  },
+  "plugins": [
+    {
+      "name": "vda5050",
+      "source": "./",
+      "description": "VDA 5050 reference, JSON schemas and message validator for fleet-control and AMR developers."
+    }
+  ]
+}
