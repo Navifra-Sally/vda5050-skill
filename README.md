@@ -50,10 +50,16 @@ npx skills add Navifra-Sally/vda5050-skill
 python3 skills/vda5050/scripts/render.py --order o.json --state s.json --vis v.json -o view.html
 ```
 
-One self-contained HTML, no JavaScript: nodes at their positions, base solid / horizon dashed,
-`lastNodeId` ring, robot position, action badges coloured by `actionStatus`, and the validator findings.
-See [`references/examples/render-3.0.html`](skills/vda5050/references/examples/render-3.0.html) for the
-rendered example.
+One self-contained HTML (or `.svg`), no JavaScript: nodes at their map positions with direction arrows,
+base solid / horizon dashed, `allowedDeviationXY` ellipses, `lastNodeId` ring, robot position and
+heading, action badges coloured by `actionStatus`, a 1 m grid, and below the picture the state header
+and the validator findings.
+
+![render.py output for the example order update, state and visualization](skills/vda5050/references/examples/render-3.0.png)
+
+In this example the robot (blue) sits just past node 90 heading for 92, whose `pick` action shows an
+orange `?` because the captured state has no actionState for it. Source files and the HTML version are
+in [`skills/vda5050/references/examples/`](skills/vda5050/references/examples/).
 
 ## Example prompts
 

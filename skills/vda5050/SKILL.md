@@ -115,10 +115,11 @@ State: duplicate or out-of-order sequenceIds, released prefix, position missing 
 python3 scripts/render.py --order o.json --state s.json --vis v.json -o view.html
 ```
 
-Self-contained HTML with inline SVG: nodes at `nodePosition`, base solid / horizon dashed, `lastNodeId`
-ring, robot position, per-node action badges coloured by `actionStatus`, state header and validator
-findings. Use it whenever the user wants to "see" an order, a state, or why a robot stopped; open the
-result or describe what it shows. Any subset of the three inputs works.
+Self-contained HTML with inline SVG (or `-o view.svg` for the picture alone): nodes at `nodePosition`
+on a 1 m grid, direction arrows, base solid / horizon dashed, `allowedDeviationXY` ellipses,
+`lastNodeId` ring, robot position and heading, per-node action badges lettered by `actionStatus`,
+state header and validator findings. Use it whenever the user wants to "see" an order, a state, or why
+a robot stopped; open the result or describe what it shows. Any subset of the three inputs works.
 
 Note: the schemas tagged `3.0.0` upstream contain invalid JSON (trailing commas in order, factsheet,
 visualization). The bundled 3.0.0 set is taken from upstream `main` at commit 0b2ae43, which parses.

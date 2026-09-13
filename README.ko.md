@@ -47,9 +47,14 @@ npx skills add Navifra-Sally/vda5050-skill
 python3 skills/vda5050/scripts/render.py --order o.json --state s.json --vis v.json -o view.html
 ```
 
-자바스크립트 없는 HTML 한 장. 노드를 좌표에 찍고, base는 실선·horizon은 점선, `lastNodeId` 링,
-로봇 위치, `actionStatus` 색의 액션 배지, 검증 결과까지 담습니다. 예시는
-`skills/vda5050/references/examples/render-3.0.html`.
+자바스크립트 없는 HTML 한 장(또는 `.svg`). 노드를 맵 좌표에 찍고 방향 화살표, base 실선·horizon 점선,
+`allowedDeviationXY` 타원, `lastNodeId` 링, 로봇 위치와 진행 방향, `actionStatus` 색의 액션 배지, 1 m 격자,
+그리고 그림 아래에 state 헤더와 검증 결과가 붙습니다.
+
+![예시 order update + state + visualization 렌더 결과](skills/vda5050/references/examples/render-3.0.png)
+
+이 예시에서 로봇(파란색)은 90번 노드를 막 지나 92번으로 가는 중이고, 92번의 `pick` 액션은 캡처된 state에
+actionState가 없어 주황 `?`로 표시됩니다. 원본 파일과 HTML 버전은 `skills/vda5050/references/examples/`.
 
 ## 이런 식으로 씁니다
 
