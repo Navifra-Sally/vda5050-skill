@@ -1,6 +1,6 @@
 ---
 name: vda5050
-description: VDA 5050 reference (mobile robot / AGV / AMR <-> fleet control MQTT interface). Use when writing, reviewing, debugging or simulating VDA5050 order, instantActions, state, connection, factsheet, visualization, zoneSet or responses messages; MQTT topic layout; order updates and stitching; cancelOrder; action blocking types and action states; error types; operating modes; or when comparing spec versions 2.0 / 2.1 / 3.0. Also use to validate a VDA5050 JSON message against the official schema.
+description: VDA 5050 reference (mobile robot / AGV / AMR <-> fleet control MQTT interface). Use for ANY question or task that mentions VDA5050 / VDA 5050, even a simple field-name or enum lookup, because version 3.0 (2026) renamed many fields and answers from memory are usually the old 2.x names. Covers order, instantActions, state, connection, factsheet, visualization, zoneSet and responses messages; MQTT topic layout; order updates and stitching; cancelOrder; action blocking types and action states; error types; operating modes; spec version differences 2.0 / 2.1 / 3.0; and validating a VDA5050 JSON message against the official schema.
 ---
 
 # VDA 5050
@@ -12,6 +12,10 @@ here, open the matching file in `references/` before answering. Do not guess fie
 
 - Spec versions: 2.0.0 (2021), 2.1.0 (2024-08), 3.0.0 (2026-03). Most deployed robots speak 2.x.
   Ask which version the target uses if unclear; field names differ (see `references/versions.md`).
+  Key 3.0 renames: state `agvPosition` -> `mobileRobotPosition`, `batteryState` -> `powerSupply`,
+  `safetyState.eStop` -> `activeEmergencyStop`, connection `CONNECTIONBROKEN` -> `CONNECTION_BROKEN`.
+  New in 3.0: blockingType SINGLE, actionStatus RETRIABLE, connection HIBERNATING, topics `responses`
+  and `zoneSet`. Do not answer 3.0 questions with 2.x names.
 - Topic layout: `interfaceName/majorVersion/manufacturer/serialNumber/topic`,
   e.g. `uagv/v2/KIT/0001/order` or `vda5050/v3/KIT/0001/state`. No `/`, `+`, `#`, `$` in any level.
 - Topics (3.0): fleet -> robot: `order`, `instantActions`, `zoneSet`*, `responses`*.
