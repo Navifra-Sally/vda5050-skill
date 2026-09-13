@@ -116,5 +116,7 @@ visualization). The bundled 3.0.0 set is taken from upstream `main` at commit 0b
 - `references/actions.md` - predefined actions, blocking types, action states
 - `references/state-and-errors.md` - state triggers, traversal, idle, operating modes, errors, requests
 - `references/versions.md` - 2.0 / 2.1 / 3.0 differences and renames
+- `references/open-points.md` - decisions the spec leaves to the integrator, with options and costs.
+  Open this whenever a question is about "how should we handle ..." rather than "what does the spec say"
 - `references/schemas/` - official JSON schemas (MIT, VDA), 2.1.0 and 3.0.0
 - Spec text: https://github.com/VDA5050/VDA5050/blob/main/VDA5050_EN.md

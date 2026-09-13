@@ -15,6 +15,8 @@ Renamed fields
 - state `safetyState.eStop` (AUTOACK|MANUAL|REMOTE|NONE) -> `safetyState.activeEmergencyStop` (MANUAL|REMOTE|NONE).
 - connection `CONNECTIONBROKEN` -> `CONNECTION_BROKEN` (underscore added), plus new `HIBERNATING`.
 - order and state top-level `zoneSetId` removed; zones now come via the `zoneSet` topic and `enableZoneSet`.
+- factsheet `agvGeometry` -> `mobileRobotGeometry`, `vehicleConfig` -> `mobileRobotConfiguration`,
+  `protocolFeatures.agvActions` -> `protocolFeatures.mobileRobotActions`.
 - order gains optional `orderDescription`.
 
 New required in state: `instantActionStates` (instant action states no longer mixed into `actionStates`),
