@@ -8,6 +8,20 @@ names replaced. Structure, field set, array lengths and byte sizes are as captur
 |---|---|---|---|---|
 | `state-driving-3.0.json` | state | robot driving mid-order: 8 nodeStates (2 base + 6 horizon), 7 edgeStates, 9 FINISHED node actions kept from the base, 3 enabled maps, no `mobileRobotPosition` | 6.7 KB | 5.4 KB |
 | `visualization-3.0.json` | visualization | position + velocity only, `referenceStateHeaderId` links it to the state above | 0.44 KB | 0.38 KB |
+| `order-update-3.0.json` | order | constructed (not captured) update 31 matching the state: stitching node 88, base 90/92, horizon 94..104, a HARD `pick` on node 92, 3.0 ellipse `allowedDeviationXY` | 6.6 KB | 5.1 KB |
+| `render-3.0.html` | - | output of `scripts/render.py` for the three files above | | |
+
+## Render a view
+
+```bash
+python3 scripts/render.py --order order.json --state state.json --vis visualization.json -o view.html
+```
+
+Any subset of the three inputs works. Nodes are placed at `nodePosition`; base solid, horizon dashed;
+yellow ring = `lastNodeId`; blue dot = robot (from state, else visualization); small squares next to a
+node = its order actions coloured by `actionStatus` from the state (orange = no actionState at all).
+The page ends with the validator findings. In the example the `pick` on node 92 shows orange because
+the captured state has no actionState for it, which spec 6.6.9 requires for base actions.
 
 ## What to notice in the state example
 

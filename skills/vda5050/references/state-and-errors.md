@@ -24,8 +24,8 @@ Required top-level fields (3.0 schema): header, `orderId`, `orderUpdateId`, `las
 
 ## Traversal
 
-- Robot decides when a node counts as traversed: control point inside `allowedDeviationXY` (an ellipse
-  around the node) and heading inside `allowedDeviationTheta`.
+- Robot decides when a node counts as traversed: control point inside `allowedDeviationXY` (3.0: an
+  ellipse object `{a, b, theta}`; 2.x: a radius number) and heading inside `allowedDeviationTheta`.
 - On traversal: remove the `nodeState`, set `lastNodeId`/`lastNodeSequenceId`, start node actions,
   remove the incoming edge from `edgeStates` and finish its actions, enter the next edge and start its
   actions (unless a SOFT/HARD action holds the robot on the node).

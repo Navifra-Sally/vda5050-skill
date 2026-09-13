@@ -28,10 +28,16 @@ def order_semantics(msg):
         return errs
     if len(edges) != len(nodes) - 1:
         errs.append(f"edges ({len(edges)}) must equal nodes - 1 ({len(nodes) - 1})")
-    seq = sorted([(n["sequenceId"], "node", n) for n in nodes] + [(e["sequenceId"], "edge", e) for e in edges])
+    seq = sorted([(n["sequenceId"], "node", n) for n in nodes] + [(e["sequenceId"], "edge", e) for e in edges],
+                 key=lambda t: (t[0], t[1]))
+    first = seq[0][0]
+    if msg.get("orderUpdateId", 0) == 0 and first != 0:
+        errs.append(f"new order (orderUpdateId 0) must start at sequenceId 0, got {first}")
+    if first % 2:
+        errs.append(f"first sequenceId {first} must be even (a node)")
     for i, (sid, kind, _) in enumerate(seq):
-        if sid != i:
-            errs.append(f"sequenceId not continuous: expected {i}, got {sid} ({kind})")
+        if sid != first + i:
+            errs.append(f"sequenceId not continuous: expected {first + i}, got {sid} ({kind})")
             break
         if (i % 2 == 0) != (kind == "node"):
             errs.append(f"sequenceId {sid} should be a {'node' if i % 2 == 0 else 'edge'}")

@@ -1,7 +1,7 @@
 {
   "name": "vda5050",
   "description": "VDA 5050 reference for fleet-control and AMR/AGV developers: MQTT topics, order/state/action semantics, error types, operating modes, 2.1 vs 3.0 differences, plus bundled JSON schemas and a message validator.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Navifra-Sally",
     "url": "https://github.com/Navifra-Sally"

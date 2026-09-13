@@ -35,6 +35,22 @@ VDA 5050 3.0.0 사실 질문 4개를 빈 디렉토리에서 Claude Code(Sonnet)�
 
 로컬에서 바로 써보기: `claude --plugin-dir ./vda5050-skill`
 
+Cursor, Codex CLI, OpenCode 등 `SKILL.md`를 읽는 다른 에이전트는 skills.sh로 설치합니다.
+
+```
+npx skills add Navifra-Sally/vda5050-skill
+```
+
+## order / state 그려보기
+
+```
+python3 skills/vda5050/scripts/render.py --order o.json --state s.json --vis v.json -o view.html
+```
+
+자바스크립트 없는 HTML 한 장. 노드를 좌표에 찍고, base는 실선·horizon은 점선, `lastNodeId` 링,
+로봇 위치, `actionStatus` 색의 액션 배지, 검증 결과까지 담습니다. 예시는
+`skills/vda5050/references/examples/render-3.0.html`.
+
 ## 이런 식으로 씁니다
 
 - "로봇이 g에 서 있고 base가 f d g야. b h를 release하고 i를 horizon으로 붙이는 order update JSON 만들어줘"

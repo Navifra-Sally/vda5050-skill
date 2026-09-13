@@ -27,6 +27,8 @@ All are reported in `errors[]` until the next order is accepted (or until the mo
 - Extend the base before the robot reaches the decision point to keep it moving. Robot may set
   `newBaseRequest: true` in state when its base runs short.
 - Once a node is released its `sequenceId` never changes.
+- `sequenceId` starts at 0 only for a new order (`orderUpdateId` 0). An order update starts at the
+  stitching node's existing `sequenceId` (e.g. 88) and continues from there.
 
 ## Stitching example
 

@@ -18,6 +18,9 @@ Renamed fields
 - factsheet `agvGeometry` -> `mobileRobotGeometry`, `vehicleConfig` -> `mobileRobotConfiguration`,
   `protocolFeatures.agvActions` -> `protocolFeatures.mobileRobotActions`.
 - order gains optional `orderDescription`.
+- `nodePosition.allowedDeviationXY` changes type: 2.x number (radius, m) -> 3.0 object
+  `{a, b, theta}` (ellipse semi-major, semi-minor in m, rotation in rad). Sending a number to a 3.0
+  robot fails schema validation.
 
 New required in state: `instantActionStates` (instant action states no longer mixed into `actionStates`),
 `powerSupply`. Optional new arrays: `zoneActionStates`, `maps`, `zoneSets`, `zoneRequests`,

@@ -15,7 +15,8 @@ here, open the matching file in `references/` before answering. Do not guess fie
   Key 3.0 renames: state `agvPosition` -> `mobileRobotPosition`, `batteryState` -> `powerSupply`,
   `safetyState.eStop` -> `activeEmergencyStop`, connection `CONNECTIONBROKEN` -> `CONNECTION_BROKEN`.
   New in 3.0: blockingType SINGLE, actionStatus RETRIABLE, connection HIBERNATING, topics `responses`
-  and `zoneSet`. Do not answer 3.0 questions with 2.x names.
+  and `zoneSet`; `allowedDeviationXY` is an ellipse object `{a, b, theta}`, not a number.
+  Do not answer 3.0 questions with 2.x names.
 - Topic layout: `interfaceName/majorVersion/manufacturer/serialNumber/topic`,
   e.g. `uagv/v2/KIT/0001/order` or `vda5050/v3/KIT/0001/state`. No `/`, `+`, `#`, `$` in any level.
 - Topics (3.0): fleet -> robot: `order`, `instantActions`, `zoneSet`*, `responses`*.
@@ -107,6 +108,17 @@ Checks JSON Schema (bundled, `references/schemas/<version>/`) plus semantics the
 express. Order: sequenceId continuity, node/edge counts, release ordering, first node released.
 State: duplicate or out-of-order sequenceIds, released prefix, position missing while driving
 (warning). Needs `pip install jsonschema`.
+
+## Draw an order / state
+
+```bash
+python3 scripts/render.py --order o.json --state s.json --vis v.json -o view.html
+```
+
+Self-contained HTML with inline SVG: nodes at `nodePosition`, base solid / horizon dashed, `lastNodeId`
+ring, robot position, per-node action badges coloured by `actionStatus`, state header and validator
+findings. Use it whenever the user wants to "see" an order, a state, or why a robot stopped; open the
+result or describe what it shows. Any subset of the three inputs works.
 
 Note: the schemas tagged `3.0.0` upstream contain invalid JSON (trailing commas in order, factsheet,
 visualization). The bundled 3.0.0 set is taken from upstream `main` at commit 0b2ae43, which parses.

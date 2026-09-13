@@ -38,6 +38,23 @@ triggers on simple lookups; the version in this repo includes that fix.
 
 Or try it locally: `claude --plugin-dir ./vda5050-skill`.
 
+Cursor, Codex CLI, OpenCode and other agents that read `SKILL.md` (via [skills.sh](https://skills.sh)):
+
+```
+npx skills add Navifra-Sally/vda5050-skill
+```
+
+## Draw an order or state
+
+```
+python3 skills/vda5050/scripts/render.py --order o.json --state s.json --vis v.json -o view.html
+```
+
+One self-contained HTML, no JavaScript: nodes at their positions, base solid / horizon dashed,
+`lastNodeId` ring, robot position, action badges coloured by `actionStatus`, and the validator findings.
+See [`references/examples/render-3.0.html`](skills/vda5050/references/examples/render-3.0.html) for the
+rendered example.
+
 ## Example prompts
 
 **Write an order update**
