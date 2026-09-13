@@ -1,5 +1,7 @@
 # vda5050 skill for Claude Code
 
+[한국어](README.ko.md)
+
 A Claude Code plugin that gives Claude an accurate, citable VDA 5050 reference while you build or debug
 fleet-control / AMR integrations.
 
@@ -9,6 +11,23 @@ fleet-control / AMR integrations.
 - Predefined actions, blocking types, action state machine
 - 2.1 vs 3.0 differences and renames
 - Official JSON schemas (2.1.0 and 3.0.0) and `scripts/validate.py` for schema + order-semantic checks
+
+## Does it help? A small measurement
+
+Four VDA 5050 3.0.0 fact questions, asked to Claude Code (Sonnet) from an empty directory, one to
+three runs each. Without the plugin the model answers with 2.x names or invents values, because 3.0
+(March 2026) is barely in training data.
+
+| question | without plugin | with plugin |
+|---|---|---|
+| `connectionState` values | wrong (2.x list, no HIBERNATING) | correct |
+| state position / battery field names | wrong (`agvPosition`, `batteryState`) | correct (`mobileRobotPosition`, `powerSupply`) |
+| `blockingType` values | wrong (no SINGLE) | correct |
+| errorType for an update to a cancelled order | invented (`orderUpdateError`) | correct (ORDER_UPDATE_FOLLOWING_CANCEL) |
+
+Score: 0/4 without, 4/4 with. This is a smoke test, not a benchmark: it covers fact lookups only, not
+the quality of generated orders or adapter code. The second row needed a description fix so the skill
+triggers on simple lookups; the version in this repo includes that fix.
 
 ## Install
 
@@ -79,4 +98,4 @@ python3 skills/vda5050/scripts/validate.py state  my_state.json --spec 2.1.0
 Skill text and script: MIT (see LICENSE). JSON schemas under `skills/vda5050/references/schemas/` are
 copyright Verband der Automobilindustrie, MIT (see `LICENSE-VDA5050.txt` there), taken from
 https://github.com/VDA5050/VDA5050. The 3.0.0 set is from `main` at commit 0b2ae43 because the files
-tagged 3.0.0 contain invalid JSON.
+tagged 3.0.0 contain invalid JSON (upstream issue VDA5050/VDA5050#660).
