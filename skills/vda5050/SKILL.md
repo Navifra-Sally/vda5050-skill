@@ -103,9 +103,10 @@ python3 scripts/validate.py order  my_order.json          # version auto-detecte
 python3 scripts/validate.py state  my_state.json --spec 2.1.0
 ```
 
-Checks JSON Schema (bundled, `references/schemas/<version>/`) plus order semantics the schema cannot
-express: sequenceId continuity, node/edge counts, release ordering, first node released. Needs
-`pip install jsonschema`.
+Checks JSON Schema (bundled, `references/schemas/<version>/`) plus semantics the schema cannot
+express. Order: sequenceId continuity, node/edge counts, release ordering, first node released.
+State: duplicate or out-of-order sequenceIds, released prefix, position missing while driving
+(warning). Needs `pip install jsonschema`.
 
 Note: the schemas tagged `3.0.0` upstream contain invalid JSON (trailing commas in order, factsheet,
 visualization). The bundled 3.0.0 set is taken from upstream `main` at commit 0b2ae43, which parses.
@@ -118,5 +119,7 @@ visualization). The bundled 3.0.0 set is taken from upstream `main` at commit 0b
 - `references/versions.md` - 2.0 / 2.1 / 3.0 differences and renames
 - `references/open-points.md` - decisions the spec leaves to the integrator, with options and costs.
   Open this whenever a question is about "how should we handle ..." rather than "what does the spec say"
+- `references/examples/` - captured, anonymized 3.0 state and visualization messages with notes on
+  what to look at, message sizes and publish rates for capacity planning
 - `references/schemas/` - official JSON schemas (MIT, VDA), 2.1.0 and 3.0.0
 - Spec text: https://github.com/VDA5050/VDA5050/blob/main/VDA5050_EN.md

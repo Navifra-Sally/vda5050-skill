@@ -1,0 +1,21 @@
+{
+  "headerId": 23173,
+  "timestamp": "2026-09-09T05:20:24.059Z",
+  "version": "3.0.0",
+  "manufacturer": "acme",
+  "serialNumber": "amr-0001",
+  "referenceStateHeaderId": 7064,
+  "mobileRobotPosition": {
+    "x": -114.1931,
+    "y": -49.209,
+    "theta": 0.0,
+    "mapId": "ad64716f-74cf-57de-8f8f-ff189770e632",
+    "localized": true,
+    "localizationScore": 0.95
+  },
+  "velocity": {
+    "vx": 0.7507,
+    "vy": 0.0,
+    "omega": 0.0
+  }
+}

@@ -5,7 +5,8 @@ usage: validate.py <topic> <message.json> [--spec 3.0.0|2.1.0]
 topic: order | instantActions | state | connection | factsheet | visualization | zoneSet | responses
 
 Spec version is auto-detected from the message "version" header (major 2 -> 2.1.0, 3 -> 3.0.0).
-Also runs order-semantic checks the schema cannot express (section 6.1 of the spec).
+Also runs semantic checks the schema cannot express: order (section 6.1) and state (6.6:
+duplicate / out-of-order sequenceIds, released prefix, missing position while driving).
 """
 import json
 import pathlib
@@ -53,6 +54,26 @@ def order_semantics(msg):
     return errs
 
 
+def state_semantics(msg):
+    errs = []
+    last = msg.get("lastNodeSequenceId", 0)
+    for key, parity, name in (("nodeStates", 0, "node"), ("edgeStates", 1, "edge")):
+        seqs = [x["sequenceId"] for x in msg.get(key, [])]
+        if len(seqs) != len(set(seqs)):
+            errs.append(f"{key}: duplicate sequenceId {sorted(s for s in set(seqs) if seqs.count(s) > 1)}")
+        for s in seqs:
+            if s % 2 != parity:
+                errs.append(f"{key}: sequenceId {s} has wrong parity for a {name}")
+            if s <= last and msg.get("orderId"):
+                errs.append(f"{key}: sequenceId {s} is not after lastNodeSequenceId {last}")
+        rel = [x.get("released", False) for x in sorted(msg.get(key, []), key=lambda x: x["sequenceId"])]
+        if any(rel[i] and not rel[i - 1] for i in range(1, len(rel))):
+            errs.append(f"{key}: released entry after an unreleased one")
+    if msg.get("driving") and "mobileRobotPosition" not in msg and "agvPosition" not in msg:
+        errs.append("warning: driving but no position in state (spec 6.6.1: publish it if the robot can determine it)")
+    return errs
+
+
 def main(argv):
     if len(argv) < 3:
         sys.exit(__doc__)
@@ -72,10 +93,13 @@ def main(argv):
                 for e in jsonschema.Draft7Validator(schema).iter_errors(msg)]
     if topic == "order":
         problems += [f"semantic: {m}" for m in order_semantics(msg)]
+    if topic == "state":
+        problems += [f"semantic: {m}" for m in state_semantics(msg)]
     for p in problems:
         print(p)
-    print(f"{'FAIL' if problems else 'OK'}: {topic} ({spec}) {path}")
-    return 1 if problems else 0
+    hard = [p for p in problems if "warning:" not in p]
+    print(f"{'FAIL' if hard else 'OK'}: {topic} ({spec}) {path}")
+    return 1 if hard else 0
 
 
 if __name__ == "__main__":
